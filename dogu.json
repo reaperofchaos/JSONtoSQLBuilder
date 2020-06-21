@@ -1,0 +1,200 @@
+var dogu = [{
+				"name": "Tanabatake",
+				"nickname": "Jomon Venus",
+				"archaeologicalSite": "Tanabatake Site",
+				"location": "Nagano",
+				"period": "Middle Jomon",
+				"image": "dogu/Tanabatake.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/Fig01-Tanabatake-400x444.jpg",
+				"museum": "Togariishi Jōmon Archeological Museum"
+				},
+				{
+				"name": "Urushishita",
+				"nickname": "Triangle-headed",
+				"archaeologicalSite": "Urushishita Site",
+				"location": "Akita",
+				"period": "Late Jomon",
+				"image": "dogu/Urushishita.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/Fig02-400x678.jpg",
+				"museum": ""
+				},	
+				{
+				"name": "Chobonaino",
+				"nickname": "Hollow Dogu",
+				"archaeologicalSite": "Chobonaino Site",
+				"location": "Hokkaido",
+				"period": "Late Jomon",
+				"image": "dogu/Chobonaino.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/Fig05-400x697.jpg",
+				"museum": ""
+				},
+				{
+				"name": "Mori-machi",
+				"nickname": "",
+				"archaeologicalSite": "Mori-machi Site",
+				"location": "Hokkaido",
+				"period": "Late Jomon",
+				"image": "dogu/morimachi.jpg",
+				"src": "http://orjach.org/module/mystery-of-the-dogu-figurine/#Fig__04___Dogu_from_Mori_machi__Hokkaido__Late_Jomon__c__1500_1000_BC_",
+				"museum": ""
+				},
+				{
+				"name": "Toyooka Dogu",
+				"nickname": "Goggle-eyed Dogu",
+				"archaeologicalSite": "Toyooka Site",
+				"location": "Iwate",
+				"period": "Final Jomon",
+				"image": "dogu/Toyooka.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/cid_1e7a4b66-9a43-49da-ae4f-077da42d015b@exch_uea_ac-400x411.jpg",
+				"museum": ""
+				},
+				{
+				"name": "Kasori Dogu",
+				"nickname": "",
+				"archaeologicalSite": "Kasori Site",
+				"location": "Chiba",
+				"period": "Late Jomon",
+				"image": "dogu/kasori.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/Fig09-400x304.jpg",
+				"museum": ""
+				},
+				{
+				"name": "Aidani-Kumahara Dogu",
+				"nickname": "",
+				"archaeologicalSite": "Aidani-Kumahara Site",
+				"location": "Shiga",
+				"period": "Incipient Jomon",
+				"image": "dogu/Aidani-kumahara.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/Fig10-01-400x272.jpg",
+				"museum": ""
+				},
+				{
+				"name": "Sannai Maruyama Dogu",
+				"nickname": "Cruciform Dogu",
+				"archaeologicalSite": "Sannai Maruyama Site",
+				"location": "Aomori",
+				"period": "Middle Jomon",
+				"image": "dogu/Sannai Maruyama.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/Fig12-Sannai-400x534.jpg",
+				"museum": "Cultural Property Preservation Division, Aomori Prefectural Government"
+				},
+				{
+				"name": "Shakado Dogu",
+				"nickname": "",
+				"archaeologicalSite": "Shakado Site",
+				"location": "Yamanashi",
+				"period": "Middle Jomon",
+				"image": "dogu/Shakado.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/Fig11-400x418.jpg",
+				"museum": ""
+				},
+				{
+				"name": "Kazahari Dogu",
+				"nickname": "Seated Dogu",
+				"archaeologicalSite": "Kazahari Site",
+				"location": "Aomori",
+				"period": "Late Jomon",
+				"image": "dogu/Kazahari.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/Fig13-400x413.jpg",
+				"museum": ""
+				},
+				{
+				"name": "Imojiya Dogu",
+				"nickname": "Hollow Cylindrical Dogu",
+				"archaeologicalSite": "Imojiya Site",
+				"location": "Yamanashi",
+				"period": "Middle Jomon",
+				"image": "dogu/Imojiya.jpg",
+				"src": "http://www.orjach.org/wp-content/uploads/Fig15-400x600.jpg",
+				"museum": ""
+				},
+				{
+				"name": "Funagata Dogu",
+				"nickname": "Standing Dogu",
+				"archaeologicalSite": "Nishinomae Site",
+				"location": "Yamagata",
+				"period": "Middle Jomon",
+				"image": "dogu/Funagata.jpg",
+				"src": "https://www.tnm.jp/en/exhibition/special/images/200912dogu/200912dogu07.jpg",
+				"museum": "Yamagata Prefectural Board of Education"
+				},
+				{
+				"name": "Kamikurokoma Dogu",
+				"nickname": "",
+				"archaeologicalSite": "Kamikurokoma Site",
+				"location": "Yamanashi",
+				"period": "Middle Jomon",
+				"image": "dogu/Kamikurokoma.jpg",
+				"src": "https://www.tnm.jp/en/exhibition/special/images/200912dogu/200912dogu08.jpg",
+				"museum": "Tokyo National Museum"
+				},
+				{
+				"name": "Gohara Dogu",
+				"nickname": "Heart-Shaped Dogu",
+				"archaeologicalSite": "Gohara Site",
+				"location": "Gunma",
+				"period": "Late Jomon",
+				"image": "dogu/Gohara.jpg",
+				"src": "https://www.tnm.jp/en/exhibition/special/images/200912dogu/200912dogu09.jpg",
+				"museum": "Private Collection"
+				},
+				{
+				"name": "Nakappara Dogu",
+				"nickname": "Masked Dogu",
+				"archaeologicalSite": "Nakappara Site",
+				"location": "Nagano",
+				"period": "Late Jomon",
+				"image": "dogu/Nakappara.jpg",
+				"src": "https://www.tnm.jp/en/exhibition/special/images/200912dogu/200912dogu10.jpg",
+				"museum": "Chino City Board of Education, Nagano"
+				},
+				{
+				"name": "Kamegaoka Dogu",
+				"nickname": "Goggle Dogu",
+				"archaeologicalSite": "Kamegaoka Site",
+				"location": "Aomori",
+				"period": "Final Jomon",
+				"image": "dogu/Kamegaoka.jpg",
+				"src": "https://www.tnm.jp/en/exhibition/special/images/200912dogu/200912dogu11.jpg",
+				"museum": "Tokyo National Museum"
+				},
+				{
+				"name": "Shidanai Dogu",
+				"nickname": "Dogu Head",
+				"archaeologicalSite": "Shidanai Site",
+				"location": "Iwate",
+				"period": "Late Jomon",
+				"image": "dogu/Shidanai.jpg",
+				"src": "https://www.tnm.jp/en/exhibition/special/images/200912dogu/200912dogu12.jpg",
+				"museum": ""
+				},	
+				{
+				"name": "Tokoshinai Dogu",
+				"nickname": "Boar Dogu",
+				"archaeologicalSite": "Tokoshinai Site",
+				"location": "Aomori",
+				"period": "Late Jomon",
+				"image": "dogu/Tokoshinai.jpg",
+				"src": "https://www.tnm.jp/en/exhibition/special/images/200912dogu/200912dogu13.jpg",
+				"museum": "Hirosaki City Museum"
+				},
+				{
+				"name": "Ebisuda Dogu",
+				"nickname": "Goggle-eyed Dogu",
+				"archaeologicalSite": "Ebisuda Site",
+				"location": "Miyagi",
+				"period": "Final Jomon",
+				"image": "dogu/Ebisuda.jpg",
+				"src": "http://4.bp.blogspot.com/-Ja_UhfjU-uI/Tf--iJeimAI/AAAAAAAAB6Y/fRj4Nc-wk40/s1600/Dogu_statue.jpg",
+				"museum": ""
+				},
+				{
+				"name": "Kitakami Dogu",
+				"nickname": "",
+				"archaeologicalSite": "Kitakami Site",
+				"location": "Miyagi",
+				"period": "Final Jomon",
+				"image": "dogu/Kitakami.png",
+				"src": "https://classconnection.s3.amazonaws.com/594/flashcards/716594/png/screen_shot_2013-12-12_at_110341_pm-142EA201EA47D332DF4-thumb400.png",
+				"museum": ""
+				}];
