@@ -9,17 +9,18 @@ navigate to directory with binary (windows/SqlBuilder.exe) or (linux/SqlBuilder)
 
 ## Windows
 SqlBuilder.exe <file to parse> -s <server type>
-flags: -s specifies SQL syntax to be used in output file
-       Options: mysql - MySQL Server
-                mssql - MS SQL Server
-       if no option is specified mysql syntax will be used in output sql file
-Files that can be parsed: CSV, JSON(must be a flat file with one level)
-Database Servers that will handled outputted SQL files MySQL mysql and MS SQL Server mssql  
 
 ## Linux
 ./SqlBuilder <file to parse> -s <server type>
-Files that can be parsed: CSV, JSON(must be a flat file with one level)
-Database Servers that will handled outputted SQL files MySQL mysql and MS SQL Server mssql  
+
+### Flags
+flags: -s specifies SQL syntax to be used in output file  <br />
+       Options: mysql - MySQL Server <br />
+                mssql - MS SQL Server <br />
+       if no option is specified mysql syntax will be used in output sql file <br />
+Files that can be parsed: CSV, JSON(must be a flat file with one level) <br />
+Database Servers that will handled outputted SQL files MySQL mysql and MS SQL Server mssql  <br />
+
   
 # Installation:
 ## Windows
