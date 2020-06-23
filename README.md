@@ -2,10 +2,29 @@
 Creates a .sql file from a .json file (one level deep)
 Parses all json keys and assumes they are the names of the columns. 
 Stores the values as records that will be inserted into the name of a table specified or creates a table if it does not exist.
+If a CSV is selected, program will attempt to correct csv files with commas inside of quotations (common problem with csv files exported from Microsoft Excel) and replace spaces in column names with underscores to allow for valid sql column names
 
+# Usage
+navigate to directory with binary (windows/SqlBuilder.exe) or (linux/SqlBuilder)
+
+## Windows
+SqlBuilder.exe <file to parse> -s <server type>
+flags: -s specifies SQL syntax to be used in output file
+       Options: mysql - MySQL Server
+                mssql - MS SQL Server
+       if no option is specified mysql syntax will be used in output sql file
+Files that can be parsed: CSV, JSON(must be a flat file with one level)
+Database Servers that will handled outputted SQL files MySQL mysql and MS SQL Server mssql  
+
+## Linux
+./SqlBuilder <file to parse> -s <server type>
+Files that can be parsed: CSV, JSON(must be a flat file with one level)
+Database Servers that will handled outputted SQL files MySQL mysql and MS SQL Server mssql  
+  
 # Installation:
 ## Windows
 <a href="https://github.com/reaperofchaos/JSONtoSQLBuilder/blob/master/windows/SqlBuilder.exe">Windows Binary</a>
+
 ### Compile from Source
 Requires GCC to compile
 Download GNUWIN <a href="https://sourceforge.net/projects/gnuwin32/">GNUWin</a> to run MAKE in windows.
@@ -20,6 +39,7 @@ If a table does not exist, the SQL file will attempt to create a file with a pri
 
 ## Linux
 <a href='https://github.com/reaperofchaos/JSONtoSQLBuilder/blob/master/linux/SqlBuilder'>Linux Binary</a>
+
 ### Compile from Source
 Requires GCC and Make to compile
 From a command prompt navigate to linux build folder and run make
