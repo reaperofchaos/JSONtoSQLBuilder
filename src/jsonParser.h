@@ -5,11 +5,11 @@
 #include <map>
 #include <regex>
 #include <iterator>
+#include "utilities.h"
 
 class jsonParser
 {
 	private:
-		//std::map* _keyPairs; 
 		std::ifstream _in; 
 		std::vector<std::map<std::string,std::string>> _records;
 
@@ -35,7 +35,6 @@ class jsonParser
 		bool isEndOfFile(std::string line);
 		void showPairs(std::map<std::string, std::string> keyValuePairs);
 		void showRecords();
-
 
 };
 #endif

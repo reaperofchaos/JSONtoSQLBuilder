@@ -22,15 +22,22 @@ LD=g++
 LDFLAGS=$(PTHREAD) -export-dynamic
 
 OBJS=    $(OBJDIR)/main.o \
+		 $(OBJDIR)/utilities.o\
 		 $(OBJDIR)/jsonParser.o\
-		 $(OBJDIR)/sqlBuilder.o
+		 $(OBJDIR)/sqlBuilder.o\
+		 $(OBJDIR)/csvParser.o\
 
 all: $(OBJS)
 	$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS)
 
+$(OBJDIR)/utilities.o:
+	$(CC) -c $(CCFLAGS) $(SRCDIR)/utilities.cpp -o $(OBJDIR)/utilities.o
+
 $(OBJDIR)/jsonParser.o:
 	$(CC) -c $(CCFLAGS) $(SRCDIR)/jsonParser.cpp -o $(OBJDIR)/jsonParser.o
-	
+
+$(OBJDIR)/csvParser.o:
+	$(CC) -c $(CCFLAGS) $(SRCDIR)/csvParser.cpp -o $(OBJDIR)/csvParser.o	
 	
 $(OBJDIR)/sqlBuilder.o:
 	$(CC) -c $(CCFLAGS) $(SRCDIR)/sqlBuilder.cpp -o $(OBJDIR)/sqlBuilder.o	

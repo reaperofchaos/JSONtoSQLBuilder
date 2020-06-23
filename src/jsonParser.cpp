@@ -39,6 +39,10 @@ void jsonParser::loadInput(std::string input)
 				value = jsonParser::getValue(l);
 				if(key != "")
 				{
+					Utilities::sanitize(key);
+					Utilities::spacesToUnderscores(key);
+					Utilities::removeComma(key);
+					Utilities::sanitize(value);
 					pair.insert(std::pair<std::string, std::string>(key, value));
 				}
 			}
@@ -54,6 +58,7 @@ void jsonParser::loadInput(std::string input)
 			{
 				endOfFile = true; 
 				std::cout<<"JSON file has been parsed." << std::endl;
+				_in.close();
 			}
 		}
 	}

@@ -16,11 +16,12 @@ class SQLBuilder
 		std::string _tableName;
 		std::string _title;
 		std::set<std::string> _columns;
+		int _columnTotal;
 		std::vector<std::map<std::string, std::string>> _records;
-		
+		std::string _server;
 	public:
 		SQLBuilder();
-		SQLBuilder(std::string fileName, std::string table, std::vector<std::map<std::string, std::string>> records);
+		SQLBuilder(std::string fileName, std::string table, std::vector<std::map<std::string, std::string>> records, std::string server);
 		~SQLBuilder();
 		
 		//getter
@@ -52,6 +53,8 @@ class SQLBuilder
 		}
 		
 		void setColumns();
+		void createMYSQLFile();
+		void createMSSQLFile();
 		void createSQLFile();
 		void outputRecord(std::map<std::string, std::string> record);
 		void outputRecords();

@@ -5,26 +5,37 @@
 #include <algorithm>
 #include <map>
 #include "jsonParser.h"
+#include "csvParser.h"
 #include "SqlBuilder.h"
 
-void validateFileType(std::string extension, std::vector<std::string> validFileTypes, std::string fileName);
+
+void validateFileType(std::string extension, std::string server, std::vector<std::string> validFileTypes, std::string fileName);
+void validateServerType(std::string& serverType);
 std::string getExtension(std::string filePath);
 std::string getFileName(std::string filePath);
 
 int main(int argc, char* argv[])
 {
-	std::vector<std::string> validFileTypes = {"json", "csv", "tsv"};
+	std::vector<std::string> validFileTypes = {"json", "csv"};
 	//code to get filename information
 	std::string extension = "";
 	std::string fileName = ""; 
 	std::string filePath = ""; 
+	std::string flag = ""; 
+	std::string serverType  = "";
 	if(argc > 1)
 	{
 		filePath = argv[1];
 		fileName = getFileName(filePath);
 		extension = getExtension(fileName);
+		flag = argv[2];
+		if(flag == "-s")
+		{
+			serverType = argv[3];
+		}
 	}
-	validateFileType(extension, validFileTypes, fileName);	
+	validateServerType(serverType);
+	validateFileType(extension, serverType, validFileTypes, fileName);	
 }
 
 //get extension from path
@@ -46,7 +57,7 @@ std::string getExtension(std::string fileName)
 }
 
 //check if valid extension and run parser
-void validateFileType(std::string extension, std::vector<std::string> validFileTypes, std::string fileName)
+void validateFileType(std::string extension, std::string server, std::vector<std::string> validFileTypes, std::string fileName)
 {
 	std::vector<std::map<std::string, std::string>> records;
 	//check if a valid file type
@@ -69,10 +80,11 @@ void validateFileType(std::string extension, std::vector<std::string> validFileT
 		if(*it == "csv")
 		{
 			std::cout << "This is a Comma-Separated File. Parsing CSV File..." << std::endl;
-		}
-		if(*it == "tsv")
-		{
-			std::cout << "This is a Tab-Separated File. Parsing TSV File..." << std::endl;
+			csvParser csvFile("csv"); 
+			csvFile.loadInput(fileName);
+			csvFile.showRecords();
+			records = csvFile.getRecords();
+
 		}
 		std::string title = ""; 
 		std::string table = ""; 
@@ -81,7 +93,7 @@ void validateFileType(std::string extension, std::vector<std::string> validFileT
 		std::cout << "Type the name of the table to insert into." << std::endl; 
 		std::cin >> table; 
 		std::cout << "Creating file " << title << "." << std::endl;
-		SQLBuilder sqlFile(title, table, records); 
+		SQLBuilder sqlFile(title, table, records, server); 
 		sqlFile.createSQLFile();
 	}
 
@@ -89,5 +101,22 @@ else
 	{
 		std::cout << "Extension " << extension << " is not a valid file type. Exitting program..." << std::endl;
 		return;
+	}
+}
+
+void validateServerType(std::string &serverType)
+{
+	if(serverType == "mssql")
+	{
+		std::cout << "SQL file will be created to work with MS SQL Server. " << std::endl;
+	}
+	else if(serverType == "mysql")
+	{
+		std::cout << "SQL file will be created to work with MYSQL Server. " << std::endl;
+	}
+	else
+	{
+		std::cout << "SQL file will be created to work with MYSQL Server. " << std::endl;
+		serverType = "mysql";
 	}
 }

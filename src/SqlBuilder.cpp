@@ -12,25 +12,26 @@
 				{
 					std::cout << *it << std::endl; 
 				}
+				_columnTotal = _columns.size();
 		}
 		
-		SQLBuilder::SQLBuilder(std::string fileName, std::string table, std::vector<std::map<std::string, std::string>> records)
+		SQLBuilder::SQLBuilder(std::string fileName, std::string table, std::vector<std::map<std::string, std::string>> records, std::string server)
 		{
 			//check fileName
 			std::size_t foundExt = fileName.find_last_of(".");
 			std::string file = fileName.substr(0, foundExt);
 			std::string extension = fileName.substr(foundExt + 1);
-			/*if(extension == "sql")
+			if(extension == "sql")
 			{
 				SQLBuilder::setOutputFile(fileName);
 			}
 			else
 			{
-			*/
 				SQLBuilder::setOutputFile(fileName + ".sql");
-			//}
+			}
 			_tableName = table; 
 			_records = records; 
+			_server = server;
 		}
 		
 		SQLBuilder::~SQLBuilder()
@@ -46,6 +47,7 @@
 			{
 				_columns.insert(it->first);
 			}
+			_columnTotal = _columns.size();
 		}
 		
 		void SQLBuilder::outputRecord(std::map<std::string, std::string> record)
@@ -58,9 +60,8 @@
 				{
 					_out << ", "; 
 				}
-				_out << "\"" << it->second << "\""; 
+				_out << "'" << it->second << "'"; 
 			}
-			std::cout << std::endl; 
 		}
 		
 		void SQLBuilder::outputRecords()
@@ -80,9 +81,20 @@
 				SQLBuilder::outputRecord(*it);
 			}
 		}
-		
-		
 		void SQLBuilder::createSQLFile()
+		{
+			if(_server == "mysql")
+			{
+				SQLBuilder::createMYSQLFile();
+			}
+			if(_server == "mssql")
+			{
+				SQLBuilder::createMSSQLFile();
+			}
+		}
+
+		
+		void SQLBuilder::createMYSQLFile()
 		{
 			std::cout << "Title is " << SQLBuilder::getTitle() << std::endl;
 			std::cout << "Table is " << SQLBuilder::getTable() << std::endl; 
@@ -97,12 +109,56 @@
 			{
 				if(it != _columns.begin())
 				{
-					_out << " ,\r\n";
+					_out << ",\r\n";
 				}
-				_out << (*it) << " VARCHAR(80) NULL"; 
+				_out << (*it) << " VARCHAR(255) NULL"; 
 				it++; 
 			}
 			_out << ");\r\n\r\n";
+        
+			//write to output file;
+			_out << "INSERT INTO " << _tableName << "(";
+			it = _columns.begin();
+			//print columns
+			while(it != _columns.end())
+			{
+				if(it != _columns.begin())
+				{
+					_out << ", ";
+				}
+				_out << (*it); 
+				it++;
+			}
+			_out << ") \r\n"; 
+			_out << "VALUES \r\n"; 
+			//type records
+			SQLBuilder::outputRecords();
+			_out << ");"; 
+			_out.close();
+		}
+	void SQLBuilder::createMSSQLFile()
+		{
+			std::cout << "Title is " << SQLBuilder::getTitle() << std::endl;
+			std::cout << "Table is " << SQLBuilder::getTable() << std::endl; 
+			SQLBuilder::setColumns();
+			SQLBuilder::displayColumns();
+			//check if table exists and create if not
+
+			_out << "if not exists (select * from sysobjects where name='" << _tableName <<"' and xtype='U')\r\n";
+			_out << "create table " << _tableName << " ( \r\n";
+			_out << "\tid INT IDENTITY(1, 1) PRIMARY KEY,\r\n";
+			std::set<std::string>::iterator it = _columns.begin();
+			//print columns
+			while(it != _columns.end())
+			{
+				if(it != _columns.begin())
+				{
+					_out << ",\r\n";
+				}
+				_out << "\t" << (*it) << " VARCHAR(255) NULL"; 
+				it++; 
+			}
+			_out << "\r\n);\r\n\r\n";
         
 			//write to output file;
 			_out << "INSERT INTO " << _tableName << "(";
