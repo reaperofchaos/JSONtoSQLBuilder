@@ -55,10 +55,12 @@ class SQLBuilder
 		void setColumns();
 		void createMYSQLFile();
 		void createMSSQLFile();
+		void createSQLiteFile();
 		void createSQLFile();
 		void outputRecord(std::map<std::string, std::string> record);
 		void outputRecords();
 		void displayColumns();
+		
 
 
 

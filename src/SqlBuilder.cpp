@@ -91,9 +91,54 @@
 			{
 				SQLBuilder::createMSSQLFile();
 			}
+			if(_server == "sqlite" || _server == "sqlite3")
+			{
+				SQLBuilder::createSQLiteFile();
+			}
 		}
 
-		
+		void SQLBuilder::createSQLiteFile()
+		{
+			std::cout << "Title is " << SQLBuilder::getTitle() << std::endl;
+			std::cout << "Table is " << SQLBuilder::getTable() << std::endl; 
+			SQLBuilder::setColumns();
+			SQLBuilder::displayColumns();
+			//check if table exists and create if not
+			_out << "CREATE TABLE IF NOT EXISTS `" << _tableName <<"` (\r\n";
+			_out << "id INTEGER PRIMARY KEY ASC,\r\n";
+			std::set<std::string>::iterator it = _columns.begin();
+			//print columns
+			while(it != _columns.end())
+			{
+				if(it != _columns.begin())
+				{
+					_out << ",\r\n";
+				}
+				_out << (*it) << " VARCHAR NULL"; 
+				it++; 
+			}
+			_out << ");\r\n\r\n";
+        
+			//write to output file;
+			_out << "INSERT INTO " << _tableName << "(";
+			it = _columns.begin();
+			//print columns
+			while(it != _columns.end())
+			{
+				if(it != _columns.begin())
+				{
+					_out << ", ";
+				}
+				_out << (*it); 
+				it++;
+			}
+			_out << ") \r\n"; 
+			_out << "VALUES \r\n"; 
+			//type records
+			SQLBuilder::outputRecords();
+			_out << ");"; 
+			_out.close();
+		}
 		void SQLBuilder::createMYSQLFile()
 		{
 			std::cout << "Title is " << SQLBuilder::getTitle() << std::endl;
