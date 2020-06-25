@@ -118,6 +118,10 @@ void validateServerType(std::string &serverType)
 	{
 		std::cout << "SQL file will be created to work with SQLite. " << std::endl;
 	}
+	else if(serverType == "pgsql")
+	{
+		std::cout << "SQL file will be created to work with Postgres SQL. " << std::endl;
+	}
 	else
 	{
 		std::cout << "SQL file will be created to work with MYSQL Server. " << std::endl;

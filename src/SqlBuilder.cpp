@@ -95,6 +95,10 @@
 			{
 				SQLBuilder::createSQLiteFile();
 			}
+			if(_server == "pgsql")
+			{
+				SQLBuilder::createPostgresFile();
+			}
 		}
 
 		void SQLBuilder::createSQLiteFile()
@@ -115,6 +119,48 @@
 					_out << ",\r\n";
 				}
 				_out << (*it) << " VARCHAR NULL"; 
+				it++; 
+			}
+			_out << ");\r\n\r\n";
+        
+			//write to output file;
+			_out << "INSERT INTO " << _tableName << "(";
+			it = _columns.begin();
+			//print columns
+			while(it != _columns.end())
+			{
+				if(it != _columns.begin())
+				{
+					_out << ", ";
+				}
+				_out << (*it); 
+				it++;
+			}
+			_out << ") \r\n"; 
+			_out << "VALUES \r\n"; 
+			//type records
+			SQLBuilder::outputRecords();
+			_out << ");"; 
+			_out.close();
+		}
+		void SQLBuilder::createPostgresFile()
+		{
+			std::cout << "Title is " << SQLBuilder::getTitle() << std::endl;
+			std::cout << "Table is " << SQLBuilder::getTable() << std::endl; 
+			SQLBuilder::setColumns();
+			SQLBuilder::displayColumns();
+			//check if table exists and create if not
+			_out << "CREATE TABLE IF NOT EXISTS " << _tableName <<" (\r\n";
+			_out << "id SERIAL PRIMARY KEY,\r\n";
+			std::set<std::string>::iterator it = _columns.begin();
+			//print columns
+			while(it != _columns.end())
+			{
+				if(it != _columns.begin())
+				{
+					_out << ",\r\n";
+				}
+				_out << (*it) << " VARCHAR(255) NULL"; 
 				it++; 
 			}
 			_out << ");\r\n\r\n";

@@ -56,6 +56,8 @@ class SQLBuilder
 		void createMYSQLFile();
 		void createMSSQLFile();
 		void createSQLiteFile();
+		void createPostgresFile();
+
 		void createSQLFile();
 		void outputRecord(std::map<std::string, std::string> record);
 		void outputRecords();

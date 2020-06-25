@@ -19,6 +19,7 @@ flags: **-s** specifies SQL syntax to be used in output file  <br />
                 **mssql**   - MS SQL Server <br />
                 **sqlite**  - SQLite<br />
                 **sqlite3** - SQLite<br />
+                **pgsql**   - PostGres SQL<br />
        if no option is specified mysql syntax will be used in output sql file <br />
 Files that can be parsed: CSV, JSON(must be a flat file with one level) <br />
 Database Servers that will handled outputted SQL files MySQL mysql and MS SQL Server mssql  <br />
