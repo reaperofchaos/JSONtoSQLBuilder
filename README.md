@@ -43,8 +43,8 @@ Navigate to directory with the binary (If compiled from source, it will be in st
 <a href="https://github.com/reaperofchaos/JSONtoSQLBuilder/blob/master/windows/SqlBuilder.exe">Windows Binary</a><br/>
 <br/>
 ### Compile from Source
-Requires GCC and GNUWIN compile
-Download GNUWIN <a href="https://sourceforge.net/projects/gnuwin32/">GNUWin</a> to run MAKE in windows.
+Requires GCC and GNUWIN compile <br />
+Download GNUWIN <a href="https://sourceforge.net/projects/gnuwin32/">GNUWin</a> to run MAKE in windows.<br />
 From a command prompt navigate to windows build folder and run make <br />
 Navigate to project directory in console <br />
 <pre>
