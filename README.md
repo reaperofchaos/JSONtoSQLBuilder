@@ -27,11 +27,15 @@ Navigate to directory with the binary (If compiled from source, it will be in st
                      if option is not specified, program will prompt for this
 -o [FILENAME]        outputFile
                      specifies the filename for the output sqlfile.
-                     If .sql is not included as an extension, it will be appended to the file name. If this option is not specified, the program will prompt for this.
+                     If .sql is not included as an extension, 
+                     it will be appended to the file name. If this 
+                     option is not specified, the program will
+                      prompt for this.
 -table [TABLENAME]   table
-                     specifies the name of the table to insert the records into.if option is not specified, program will prompt for this
+                     specifies the name of the table to insert the records into. 
+                     If option is not specified, program will prompt for this.
 -v  {on | off}       verbose
-                      takes an option of **on** or **off**.
+                     takes an option of **on** or **off**.
                      If set to on, it will output the records to the console. 
 </pre>
 
@@ -40,11 +44,11 @@ Navigate to directory with the binary (If compiled from source, it will be in st
 <a href="https://github.com/reaperofchaos/JSONtoSQLBuilder/blob/master/windows/SqlBuilder.exe">Windows Binary</a><br/>
 <br/>
 ### Compile from Source
-<pre>
 Requires GCC and GNUWIN compile
 Download GNUWIN <a href="https://sourceforge.net/projects/gnuwin32/">GNUWin</a> to run MAKE in windows.
-From a command prompt navigate to windows build folder and run make.
-From source directory
+From a command prompt navigate to windows build folder and run make <br />
+Navigate to source directory in console <br />
+<pre>
 cd windows
 make clean
 make
