@@ -16,27 +16,26 @@ Navigate to directory with the binary (If compiled from source, it will be in st
 
 ### OPTIONS
 <pre>
--s [DATABASE]        serverType
+<b>-s</b> [DATABASE]        serverType
                      specify which database the output sql file will be compatible with
                      Supported Databases
-                            **mysql**   - MySQL Server <br />
-                            **mssql**   - MS SQL Server <br />
-                            **sqlite**  - SQLite<br />
-                            **sqlite3** - SQLite<br />
-                            **pgsql**   - PostGres SQL<br />
+                            <em>mysql</em>   - MySQL Server <br />
+                            <em>mssql</em>   - MS SQL Server <br />
+                            <em>sqlite<em>  - SQLite<br />
+                            <em>pgsql<em>   - PostGres SQL<br />
                      if option is not specified, program will prompt for this
--o [FILENAME]        outputFile
+<b>-o</b> [FILENAME]        outputFile
                      specifies the filename for the output sqlfile.
                      If .sql is not included as an extension, 
                      it will be appended to the file name. If this 
                      option is not specified, the program will
                       prompt for this.
--table [TABLENAME]   table
+<b>-table</b> [TABLENAME]   table
                      specifies the name of the table to insert the records into. 
                      If option is not specified, program will prompt for this.
--v  {on | off}       verbose
-                     takes an option of **on** or **off**.
-                     If set to on, it will output the records to the console. 
+<b>-v</b>  {<em>on</em> | <em>off</em>}       verbose
+                     takes an option of <em>on</em> or <em>off</em>.
+                     If set to on, it will output the parsed records to the console. 
 </pre>
 
 # Installation:
