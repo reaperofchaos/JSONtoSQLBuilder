@@ -2,7 +2,7 @@
 Creates a .sql file from a .json file (one level deep) or a csv file.
 Parses all keys and assumes they are the names of the columns. If a column name is not compatible with SQL naming conventions (ie has spaces), then the spaces between words will be replaced with underscores and all trailing spaces will be removed. <br />
 <br />
-The values are stored as records that can be inserted into the name of the table specified either with the -table flag or through the program when prompted. The resulting SQL file will be formatted in a way to work with the specified database that can be specified with the -s flag or through the program when prompted. The SQL file is also coded in a way to check if the table exists and if not will create a SQL file with a primary key of ID, and all column names are set to the varchar type. <br />
+The values are stored as records that can be inserted into the name of the table specified either with the -table flag or through the program when prompted. The resulting SQL file will be formatted in a way to work with the specified database that can be specified with the -s flag or through the program when prompted. The SQL file is also coded in a way to check if the table exists and if not will create a table with a primary key of ID, and all column names are set to the varchar type. <br />
 <br />
 
 # Usage
@@ -46,7 +46,7 @@ Navigate to directory with the binary (If compiled from source, it will be in st
 Requires GCC and GNUWIN compile
 Download GNUWIN <a href="https://sourceforge.net/projects/gnuwin32/">GNUWin</a> to run MAKE in windows.
 From a command prompt navigate to windows build folder and run make <br />
-Navigate to source directory in console <br />
+Navigate to project directory in console <br />
 <pre>
 cd windows
 make clean
@@ -59,7 +59,7 @@ make
 ### Compile from Source
 Requires GCC and Make to compile <br />
 From a command prompt navigate to linux build folder and run make <br />
-Navigate to source directory in console <br />
+Navigate to project directory in console <br />
 <pre>
 cd linux
 make clean
