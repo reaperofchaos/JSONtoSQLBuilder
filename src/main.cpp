@@ -4,15 +4,20 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <iterator>
 #include "jsonParser.h"
 #include "csvParser.h"
 #include "SqlBuilder.h"
 
-
-void validateFileType(std::string extension, std::string server, std::vector<std::string> validFileTypes, std::string fileName);
-void validateServerType(std::string& serverType);
+void validateFileType(std::string extension, std::vector<std::string> 
+					  validFileTypes, std::string fileName, bool verbose,
+					  std::string server, std::string outputFile, 
+					  std::string tableName);
+bool isValidDatabase(std::string& serverType);
+void validateOutputFile(std::string &fileName);
 std::string getExtension(std::string filePath);
 std::string getFileName(std::string filePath);
+std::string getFlag(std::string flag, int& argc, char**& argv);
 
 int main(int argc, char* argv[])
 {
@@ -23,19 +28,26 @@ int main(int argc, char* argv[])
 	std::string filePath = ""; 
 	std::string flag = ""; 
 	std::string serverType  = "";
+	std::string outputFile = ""; 
+	std::string tableName = ""; 
+	bool verbose = false;
 	if(argc > 1)
 	{
 		filePath = argv[1];
 		fileName = getFileName(filePath);
 		extension = getExtension(fileName);
-		flag = argv[2];
-		if(flag == "-s")
-		{
-			serverType = argv[3];
-		}
+		//specifies the database server type
+		serverType = getFlag("-s", argc, argv);
+		//specifies output file
+		outputFile = getFlag("-o", argc, argv);
+		//specifies table to insert into
+		tableName = getFlag("-table", argc, argv);
+		//check if verbose mode is on. used to show records found
+		verbose = (getFlag("-v", argc, argv) == "on") ? true : false;
 	}
-	validateServerType(serverType);
-	validateFileType(extension, serverType, validFileTypes, fileName);	
+	validateFileType(extension, validFileTypes, fileName,
+					 verbose, serverType, outputFile, 
+					 tableName);	
 }
 
 //get extension from path
@@ -57,7 +69,11 @@ std::string getExtension(std::string fileName)
 }
 
 //check if valid extension and run parser
-void validateFileType(std::string extension, std::string server, std::vector<std::string> validFileTypes, std::string fileName)
+void validateFileType(std::string extension,
+					  std::vector<std::string> validFileTypes,
+					  std::string fileName, bool verbose,
+					  std::string server, std::string outputFile,
+					  std::string tableName)
 {
 	std::vector<std::map<std::string, std::string>> records;
 	//check if a valid file type
@@ -71,32 +87,75 @@ void validateFileType(std::string extension, std::string server, std::vector<std
 		std::cout << "Extension " << extension << " is a valid file type." << std::endl;
 		if(*it == "json")
 		{
-			std::cout << "This is a JSON file. Parsing JSON File..." << std::endl;
+			std::cout << "Parsing JSON File..." << std::endl;
 			jsonParser jsonFile;
 			jsonFile.loadInput(fileName);
-			jsonFile.showRecords();
+			if(verbose)
+			{
+				jsonFile.showRecords();
+			}
 			records = jsonFile.getRecords();
 		}
 		if(*it == "csv")
 		{
-			std::cout << "This is a Comma-Separated File. Parsing CSV File..." << std::endl;
+			std::cout << "Parsing CSV File..." << std::endl;
 			csvParser csvFile("csv"); 
 			csvFile.loadInput(fileName);
-			csvFile.showRecords();
+			if(verbose)
+			{
+				csvFile.showRecords();
+			}
 			records = csvFile.getRecords();
-
 		}
-		std::string title = ""; 
+		std::cout << std::endl << std::endl;
 		std::string table = ""; 
-		std::cout << "Type the name of the sqlfile " << std::endl; 
-		std::cin >> title;
-		std::cout << "Type the name of the table to insert into." << std::endl; 
-		std::cin >> table; 
-		std::cout << "Creating file " << title << "." << std::endl;
-		SQLBuilder sqlFile(title, table, records, server); 
+		//request server if server is not set, display database types if OPTIONS is typed
+		bool validDatabase = isValidDatabase(server);
+		while(server == "OPTIONS" || !validDatabase)
+		{
+			if(!validDatabase && (server != ""))
+			{
+				std::cout << server 
+						  << " is not a supported database. "
+						  << "Choose another database or type OPTIONS "
+						  << "for a list of supported databases." 
+						  << std::endl
+						  << std::endl;
+			}
+			if(server == "OPTIONS")
+			{
+				std::cout << std::endl << std::endl;
+				std::cout << "Currently Supported Databases: " << std::endl;
+				std::cout << "MYSQL - type mysql" << std::endl;
+				std::cout << "MS SQL Server - type mssql" << std::endl;
+				std::cout << "SQLite - type sqlite" << std::endl;
+				std::cout << "Postgres SQL - type pgsql" << std::endl;
+				std::cout << std::endl;
+			}
+			std::cout << "Please type the database you are using. Type OPTIONS for supported databases" << std::endl; 
+			std::cin >> server;
+			validDatabase = isValidDatabase(server);
+		}
+
+		while(tableName == "")
+		{
+			std::cout << "Type the name of the table to insert records into." << std::endl; 
+			//std::getline(std::cin, table);
+			std::cin >> tableName;
+		}
+
+		while(outputFile == "")
+		{
+			std::cout << "Type a name for your output sql file." << std::endl; 
+			//std::getline(std::cin, outputFile);
+			std::cin >> outputFile;
+			validateOutputFile(outputFile);
+		}
+		 
+		std::cout << "Creating file " << outputFile << "." << std::endl;
+		SQLBuilder sqlFile(outputFile, tableName, records, server); 
 		sqlFile.createSQLFile();
 	}
-
 else
 	{
 		std::cout << "Extension " << extension << " is not a valid file type. Exitting program..." << std::endl;
@@ -104,27 +163,35 @@ else
 	}
 }
 
-void validateServerType(std::string &serverType)
+bool isValidDatabase(std::string &serverType)
 {
-	if(serverType == "mssql")
+	std::vector<std::string> supportedDatabases = {
+		"mssql",
+		"mysql", 
+		"sqlite", 
+		"pgsql"
+	};
+	std::vector<std::string>::const_iterator it = std::find(
+		supportedDatabases.begin(), supportedDatabases.end(), serverType);
+	bool isValid = (it == supportedDatabases.end()) ? false : true;
+	return isValid;
+}
+
+std::string getFlag(std::string flag, int& argc, char**& argv)
+{
+	const std::vector<std::string> args(argv+1,argv+argc);
+	std::vector<std::string>::const_iterator it = std::find(args.begin(), args.end(), flag);
+	it++; 
+	return *it; 
+}
+void validateOutputFile(std::string &fileName)
+{
+	//check fileName
+	std::size_t foundExt = fileName.find_last_of(".");
+	std::string file = fileName.substr(0, foundExt);
+	std::string extension = fileName.substr(foundExt + 1);
+	if(extension != "sql")
 	{
-		std::cout << "SQL file will be created to work with MS SQL Server. " << std::endl;
-	}
-	else if(serverType == "mysql")
-	{
-		std::cout << "SQL file will be created to work with MYSQL Server. " << std::endl;
-	}
-	else if(serverType == "sqlite" || serverType == "sqlite3")
-	{
-		std::cout << "SQL file will be created to work with SQLite. " << std::endl;
-	}
-	else if(serverType == "pgsql")
-	{
-		std::cout << "SQL file will be created to work with Postgres SQL. " << std::endl;
-	}
-	else
-	{
-		std::cout << "SQL file will be created to work with MYSQL Server. " << std::endl;
-		serverType = "mysql";
+		fileName += ".sql";
 	}
 }

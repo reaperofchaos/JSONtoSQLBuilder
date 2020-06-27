@@ -1,56 +1,66 @@
 # JSONtoSQLBuilder
-Creates a .sql file from a .json file (one level deep)
-Parses all json keys and assumes they are the names of the columns. 
-Stores the values as records that will be inserted into the name of a table specified or creates a table if it does not exist.
-If a CSV is selected, program will attempt to correct csv files with commas inside of quotations (common problem with csv files exported from Microsoft Excel) and replace spaces in column names with underscores to allow for valid sql column names
+<pre>
+Creates a .sql file from a .json file (one level deep) or a csv file.
+Parses all keys and assumes they are the names of the columns. If a column name is not compatible with SQL naming conventions (ie has spaces), then the spaces between words will be replaced with underscores and all trailing spaces will be removed.
+
+The values are stored as records that can be inserted into the name of the table specified either with the -table flag or through the program when prompted. The resulting SQL file will be formatted in a way to work with the specified database that can be specified with the -s flag or through the program when prompted. The SQL file is also coded in a way to check if the table exists and if not will create a SQL file with a primary key of ID, and all column names are set to the varchar type. 
+</pre>
 
 # Usage
-navigate to directory with binary (windows/SqlBuilder.exe) or (linux/SqlBuilder)
-
+Navigate to directory with the binary (If compiled from source, it will be in stored in either windows/SqlBuilder.exe or linux/SqlBuilder)<br />
+<br/>
 ## Windows
-SqlBuilder.exe *file to parse* -s *server type*
+**SqlBuilder.exe** *fileToParse* [OPTION]...<br />
 
 ## Linux
-./SqlBuilder *file to parse* -s *server type*
+**./SqlBuilder** *fileToParse* [OPTION]...<br />
 
-### Flags
-flags: **-s** specifies SQL syntax to be used in output file  <br />
-       Options: **mysql**   - MySQL Server <br />
-                **mssql**   - MS SQL Server <br />
-                **sqlite**  - SQLite<br />
-                **sqlite3** - SQLite<br />
-                **pgsql**   - PostGres SQL<br />
-       if no option is specified mysql syntax will be used in output sql file <br />
-Files that can be parsed: CSV, JSON(must be a flat file with one level) <br />
-Database Servers that will handled outputted SQL files MySQL mysql and MS SQL Server mssql  <br />
+### OPTIONS
+<pre>
+-s [DATABASE]        serverType
+                     specify which database the output sql file will be compatible with
+                     Supported Databases
+                            **mysql**   - MySQL Server <br />
+                            **mssql**   - MS SQL Server <br />
+                            **sqlite**  - SQLite<br />
+                            **sqlite3** - SQLite<br />
+                            **pgsql**   - PostGres SQL<br />
+                     if option is not specified, program will prompt for this
+-o [FILENAME]        outputFile
+              specifies the filename for the output sqlfile. If .sql is not included as an extension, it will be appended to the file name
+              if option is not specified, program will prompt for this
+-table [TABLENAME]  table
+       specifies the name of the table to insert the records into.
+       if option is not specified, program will prompt for this
+-v  {on | off}   verbose
+                 takes an option of **on** or **off**.
+                 If set to on, it will output the records to the console. 
+</pre>
 
-  
 # Installation:
 ## Windows
-<a href="https://github.com/reaperofchaos/JSONtoSQLBuilder/blob/master/windows/SqlBuilder.exe">Windows Binary</a>
-
+<a href="https://github.com/reaperofchaos/JSONtoSQLBuilder/blob/master/windows/SqlBuilder.exe">Windows Binary</a><br/>
+<br/>
 ### Compile from Source
-Requires GCC to compile
+<pre>
+Requires GCC and GNUWIN compile
 Download GNUWIN <a href="https://sourceforge.net/projects/gnuwin32/">GNUWin</a> to run MAKE in windows.
 From a command prompt navigate to windows build folder and run make.
-
-Run SQLBuilder.exe <name of JSON file to read>
-Type in the name of the desired SQL File
-Type in the name of the table. 
-
-Creates a SQL file that can be imported in MYSQL using the keys for the JSON file to create columns. 
-If a table does not exist, the SQL file will attempt to create a file with a primary key of id and all other colums will be VARCHAR(80) NULL
+From source directory
+cd windows
+make clean
+make
+</pre>
 
 ## Linux
 <a href='https://github.com/reaperofchaos/JSONtoSQLBuilder/blob/master/linux/SqlBuilder'>Linux Binary</a>
 
 ### Compile from Source
+<pre>
 Requires GCC and Make to compile
 From a command prompt navigate to linux build folder and run make
-
-./SqlBuilder <name of JSON file to read>
-Type in the name of the desired SQL File
-Type in the name of the table. 
-
-Creates a SQL file that can be imported in MYSQL using the keys for the JSON file to create columns. 
-If a table does not exist, the SQL file will attempt to create a file with a primary key of id and all other colums will be VARCHAR(80) NULL
+Navigate to source directory in console
+cd linux
+make clean
+make
+</pre>

@@ -10,25 +10,19 @@
 			for(std::set<std::string>::const_iterator it = _columns.begin();
 				it != _columns.end(); it++)
 				{
-					std::cout << *it << std::endl; 
+					if(it != _columns.begin())
+					{
+						std::cout << ", ";
+					}
+					std::cout << *it; 
 				}
+				std::cout << std::endl;
 				_columnTotal = _columns.size();
 		}
 		
 		SQLBuilder::SQLBuilder(std::string fileName, std::string table, std::vector<std::map<std::string, std::string>> records, std::string server)
-		{
-			//check fileName
-			std::size_t foundExt = fileName.find_last_of(".");
-			std::string file = fileName.substr(0, foundExt);
-			std::string extension = fileName.substr(foundExt + 1);
-			if(extension == "sql")
-			{
-				SQLBuilder::setOutputFile(fileName);
-			}
-			else
-			{
-				SQLBuilder::setOutputFile(fileName + ".sql");
-			}
+		{	
+			SQLBuilder::setOutputFile(fileName);
 			_tableName = table; 
 			_records = records; 
 			_server = server;
@@ -82,7 +76,8 @@
 			}
 		}
 		void SQLBuilder::createSQLFile()
-		{
+		{ 
+			SQLBuilder::setColumns();
 			if(_server == "mysql")
 			{
 				SQLBuilder::createMYSQLFile();
@@ -99,14 +94,15 @@
 			{
 				SQLBuilder::createPostgresFile();
 			}
+			std::cout << "FileName " << SQLBuilder::getTitle() 
+					  << " has been created." << std::endl;
+			std::cout << "Table Name: " << SQLBuilder::getTable() << std::endl;
+			SQLBuilder::displayColumns();
+			std::cout << "Number of records inserted: " << _records.size() << std::endl;
 		}
 
 		void SQLBuilder::createSQLiteFile()
 		{
-			std::cout << "Title is " << SQLBuilder::getTitle() << std::endl;
-			std::cout << "Table is " << SQLBuilder::getTable() << std::endl; 
-			SQLBuilder::setColumns();
-			SQLBuilder::displayColumns();
 			//check if table exists and create if not
 			_out << "CREATE TABLE IF NOT EXISTS `" << _tableName <<"` (\r\n";
 			_out << "id INTEGER PRIMARY KEY ASC,\r\n";
@@ -145,10 +141,6 @@
 		}
 		void SQLBuilder::createPostgresFile()
 		{
-			std::cout << "Title is " << SQLBuilder::getTitle() << std::endl;
-			std::cout << "Table is " << SQLBuilder::getTable() << std::endl; 
-			SQLBuilder::setColumns();
-			SQLBuilder::displayColumns();
 			//check if table exists and create if not
 			_out << "CREATE TABLE IF NOT EXISTS " << _tableName <<" (\r\n";
 			_out << "id SERIAL PRIMARY KEY,\r\n";
@@ -187,10 +179,6 @@
 		}
 		void SQLBuilder::createMYSQLFile()
 		{
-			std::cout << "Title is " << SQLBuilder::getTitle() << std::endl;
-			std::cout << "Table is " << SQLBuilder::getTable() << std::endl; 
-			SQLBuilder::setColumns();
-			SQLBuilder::displayColumns();
 			//check if table exists and create if not
 			_out << "CREATE TABLE IF NOT EXISTS `" << _tableName <<"` (\r\n";
 			_out << "id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,\r\n";
@@ -229,12 +217,7 @@
 		}
 	void SQLBuilder::createMSSQLFile()
 		{
-			std::cout << "Title is " << SQLBuilder::getTitle() << std::endl;
-			std::cout << "Table is " << SQLBuilder::getTable() << std::endl; 
-			SQLBuilder::setColumns();
-			SQLBuilder::displayColumns();
 			//check if table exists and create if not
-
 			_out << "if not exists (select * from sysobjects where name='" << _tableName <<"' and xtype='U')\r\n";
 			_out << "create table " << _tableName << " ( \r\n";
 			_out << "\tid INT IDENTITY(1, 1) PRIMARY KEY,\r\n";
