@@ -1,10 +1,9 @@
 # JSONtoSQLBuilder
-<pre>
 Creates a .sql file from a .json file (one level deep) or a csv file.
-Parses all keys and assumes they are the names of the columns. If a column name is not compatible with SQL naming conventions (ie has spaces), then the spaces between words will be replaced with underscores and all trailing spaces will be removed.
-
-The values are stored as records that can be inserted into the name of the table specified either with the -table flag or through the program when prompted. The resulting SQL file will be formatted in a way to work with the specified database that can be specified with the -s flag or through the program when prompted. The SQL file is also coded in a way to check if the table exists and if not will create a SQL file with a primary key of ID, and all column names are set to the varchar type. 
-</pre>
+Parses all keys and assumes they are the names of the columns. If a column name is not compatible with SQL naming conventions (ie has spaces), then the spaces between words will be replaced with underscores and all trailing spaces will be removed. <br />
+<br />
+The values are stored as records that can be inserted into the name of the table specified either with the -table flag or through the program when prompted. The resulting SQL file will be formatted in a way to work with the specified database that can be specified with the -s flag or through the program when prompted. The SQL file is also coded in a way to check if the table exists and if not will create a SQL file with a primary key of ID, and all column names are set to the varchar type. <br />
+<br />
 
 # Usage
 Navigate to directory with the binary (If compiled from source, it will be in stored in either windows/SqlBuilder.exe or linux/SqlBuilder)<br />
@@ -12,7 +11,7 @@ Navigate to directory with the binary (If compiled from source, it will be in st
 ## Windows
 **SqlBuilder.exe** *fileToParse* [OPTION]...<br />
 
-## Linux
+## Linux 
 **./SqlBuilder** *fileToParse* [OPTION]...<br />
 
 ### OPTIONS
@@ -27,14 +26,13 @@ Navigate to directory with the binary (If compiled from source, it will be in st
                             **pgsql**   - PostGres SQL<br />
                      if option is not specified, program will prompt for this
 -o [FILENAME]        outputFile
-              specifies the filename for the output sqlfile. If .sql is not included as an extension, it will be appended to the file name
-              if option is not specified, program will prompt for this
--table [TABLENAME]  table
-       specifies the name of the table to insert the records into.
-       if option is not specified, program will prompt for this
--v  {on | off}   verbose
-                 takes an option of **on** or **off**.
-                 If set to on, it will output the records to the console. 
+                     specifies the filename for the output sqlfile.
+                     If .sql is not included as an extension, it will be appended to the file name. If this option is not specified, the program will prompt for this.
+-table [TABLENAME]   table
+                     specifies the name of the table to insert the records into.if option is not specified, program will prompt for this
+-v  {on | off}       verbose
+                      takes an option of **on** or **off**.
+                     If set to on, it will output the records to the console. 
 </pre>
 
 # Installation:
@@ -56,10 +54,10 @@ make
 <a href='https://github.com/reaperofchaos/JSONtoSQLBuilder/blob/master/linux/SqlBuilder'>Linux Binary</a>
 
 ### Compile from Source
+Requires GCC and Make to compile <br />
+From a command prompt navigate to linux build folder and run make <br />
+Navigate to source directory in console <br />
 <pre>
-Requires GCC and Make to compile
-From a command prompt navigate to linux build folder and run make
-Navigate to source directory in console
 cd linux
 make clean
 make
