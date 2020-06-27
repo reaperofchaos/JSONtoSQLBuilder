@@ -31,7 +31,7 @@ Navigate to directory with the binary (If compiled from source, it will be in st
                      If .sql is not included as an extension, 
                      it will be appended to the file name. If this 
                      option is not specified, the program will
-                      prompt for this.
+                     prompt for this.
 
 
 <b>-table</b> [TABLENAME]   table
