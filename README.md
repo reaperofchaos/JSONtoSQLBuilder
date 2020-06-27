@@ -21,8 +21,8 @@ Navigate to directory with the binary (If compiled from source, it will be in st
                      Supported Databases
                             <em>mysql</em>   - MySQL Server <br />
                             <em>mssql</em>   - MS SQL Server <br />
-                            <em>sqlite<em>  - SQLite<br />
-                            <em>pgsql<em>   - PostGres SQL<br />
+                            <em>sqlite</em>  - SQLite<br />
+                            <em>pgsql</em>   - PostGres SQL<br />
                      if option is not specified, program will prompt for this
 <b>-o</b> [FILENAME]        outputFile
                      specifies the filename for the output sqlfile.
