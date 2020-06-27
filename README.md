@@ -18,7 +18,7 @@ Navigate to directory with the binary (If compiled from source, it will be in st
 <pre>
 <b>-s</b> [DATABASE]        serverType
                      specify which database the output sql file will be compatible with
-                     Supported Databases
+                     Supported Databases:
                             <em>mysql</em>   - MySQL Server <br />
                             <em>mssql</em>   - MS SQL Server <br />
                             <em>sqlite</em>  - SQLite<br />
