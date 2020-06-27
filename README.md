@@ -24,15 +24,21 @@ Navigate to directory with the binary (If compiled from source, it will be in st
                             <em>sqlite</em>  - SQLite<br />
                             <em>pgsql</em>   - PostGres SQL<br />
                      if option is not specified, program will prompt for this
+
+
 <b>-o</b> [FILENAME]        outputFile
                      specifies the filename for the output sqlfile.
                      If .sql is not included as an extension, 
                      it will be appended to the file name. If this 
                      option is not specified, the program will
                       prompt for this.
+
+
 <b>-table</b> [TABLENAME]   table
                      specifies the name of the table to insert the records into. 
                      If option is not specified, program will prompt for this.
+
+
 <b>-v</b>  {<em>on</em> | <em>off</em>}       verbose
                      takes an option of <em>on</em> or <em>off</em>.
                      If set to on, it will output the parsed records to the console. 
